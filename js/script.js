@@ -20,32 +20,32 @@ $(document).ready(function () {
                 val: "3",
                 src: "imagens/html5.png",
             })),
-        img3 = ($('<img />',
+        img4 = ($('<img />',
             {
                 class: "carta",
                 val: "4",
                 src: "imagens/nodejs.png",
             })),
-        img1 = ($('<img />',
+        img5 = ($('<img />',
             {
                 class: "carta",
                 val: 1,
                 src: "imagens/angularjs.png",
             })),
 
-        img2 = ($('<img />',
+        img6 = ($('<img />',
             {
                 class: "carta",
                 val: 2,
                 src: "imagens/css3.png",
             })),
-        img3 = ($('<img />',
+        img7 = ($('<img />',
             {
                 class: "carta",
                 val: 3,
                 src: "imagens/html5.png",
             })),
-        img3 = ($('<img />',
+        img8 = ($('<img/>',
             {
                 class: "carta",
                 val: 4,
@@ -54,62 +54,70 @@ $(document).ready(function () {
     ]
     var Pontos = 0;
     const areaDoJogo = $(".areaDoJogo");
-    var HistoricoDeClick = 0;
+    var historicoDeClick = 0;
     var primeiroclick = 0;
-    var Segundoclick = 0;
+    var segundoclick = 0;
     var imagemUm = "";
     var imagemDois = "";
 
-    //função para resetar 
-    imagens = imagens.sort(() => Math.random() - 0.5)
-    imagens.forEach(imagens => {
-        (imagens).appendTo($("#areaDoJogo"))
-    })
+
     function carregaJogo() {
         imagens = imagens.sort(() => Math.random() - 0.5)
         imagens.forEach(imagens => {
             (imagens).appendTo($("#areaDoJogo"))
         })
+        Pontos = 0;
+        historicoDeClick = 0;
+        primeiroclick = 0;
+        segundoclick = 0;
     }
-    //Recebe os valores das cartas
-    $(".carta").click(function () {
 
-        if (primeiroclick == 0) {
-            primeiroclick = ($(this).val());
-            HistoricoDeClick += 1;
-            imagemUm = $(this);
-
-        } else if (Segundoclick == 0) {
-            Segundoclick = ($(this).val());
-            HistoricoDeClick += 1;
-            imagemDois = $(this);
-
-            verificadorAcertosErros();
-        }
-    })
-
-    //verifica se acertou ou erro
-    function verificadorAcertosErros() {
-        if (primeiroclick == Segundoclick) {
-            console.log("acertou");
+    function verificadorAcertoseErros() {
+        if (primeiroclick == segundoclick) {
             Pontos += 2;
 
             imagemUm.remove();
             imagemDois.remove();
 
             primeiroclick = 0;
-            Segundoclick = 0;
+            segundoclick = 0;
 
-        } else if (primeiroclick != Segundoclick) {
+        } else if (primeiroclick != segundoclick) {
             console.log("errou")
+
             primeiroclick = 0
-            Segundoclick = 0
+            segundoclick = 0
+        }
+    }
+    //Recebe os valores das cartas
+    function RecebeValoresColetado(valorImagem, elemento) {
+        if (primeiroclick == 0) {
+            primeiroclick = valorImagem;
+            historicoDeClick += 1;
+            imagemUm = elemento;
+
+        } else if (segundoclick == 0) {
+            segundoclick = valorImagem;
+            historicoDeClick += 1;
+            imagemDois = elemento;
+            verificadorAcertoseErros();
         }
     }
 
+    $("#areaDoJogo").on("click", ".carta", function (event) {
+        RecebeValoresColetado(event.target.value, event.target);
+    })
+
     $(".botao").click(function () {
+
         carregaJogo()
+        while (Pontos >= 8) {
+            console.log("asadas")
+        }
 
     })
+
+
+
 
 })
