@@ -1,0 +1,39 @@
+
+body{
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    padding: none;
+}
+main{
+
+}
+.nome{
+    width: 20%;
+    height: 30px;
+    font-size: 20px;
+}
+.botao{
+    width: 10%;
+    height: 35px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(9, 165, 226);
+    border-radius: 10px;
+    border: solid 1px;
+}
+.carta{
+    width: 20%;
+    height: 20%;
+    border: solid 01px;
+    text-shadow: white 0px 0px 2px;
+    font-size: 16px;
+    background-size: 150px;
+    background-color: black;
+    filter: brightness(0%);
+
+}
+.carta:active{
+    transform: scale(0.90);
+    background-color: white;
+    filter: brightness(100%);	
+}
