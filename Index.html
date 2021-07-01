@@ -17,12 +17,25 @@
         <h1>Jogo da Memoria</h1>
         <div>
             <div class="cabeçalho">
-                <input type="text" class="nome" placeholder="Qual é o seu nome ?"></input>
-                <button type="button" class="botao">play</button>
+                <input type="text" id="nome" placeholder="Qual é o seu nome ?"></input>
+                <button type="button" id="botao" class="botao">play</button>
             </div>
             <p class="erro" id="erroName">Insira um nome</p>
             <br>
             <div id="areaDoJogo">
+            </div>
+            <div id="TabelaGanhadores">
+                <table class="Tabela">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Click</th>
+                            <th>Tempo</th>
+                        </tr>
+                    </thead>
+                    <tbody height=10>
+                    </tbody>
+                </table>
 
             </div>
         </div>
