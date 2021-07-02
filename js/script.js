@@ -67,66 +67,78 @@ $(document).ready(function () {
         imagens.forEach(imagens => {
             (imagens).appendTo($("#areaDoJogo"));
         });
+        $(".carta").css("opacity", "100");
+        mostraCartaInicioDoJogo()
         pontos = 0;
         historicoDeClick = 0;
         primeiroclick = 0;
         segundoclick = 0;
     };
+    function mostraCartaInicioDoJogo() {
+        setTimeout(() => {
+            $(".carta").removeClass("ativada");
+        }, 100)
+        setTimeout(() => {
+            $(".carta").addClass("ativada")
+        })
+    }
 
 
     //Recebe os valores das cartas
-    function RecebeValoresColetado(valorImagem, elemento) {
+
+    function recebeValoresColetado(valorImagem, elemento) {
         if (primeiroclick == 0) {
             primeiroclick = valorImagem;
             historicoDeClick += 1;
             imagemUm = elemento;
-            console.log(this)
-
+            $(imagemUm).addClass("ativada");
         } else if (segundoclick == 0) {
             segundoclick = valorImagem;
             historicoDeClick += 1;
             imagemDois = elemento;
+            $(imagemDois).addClass("ativada");
+
             verificadorAcertoseErros();
-        }
-    }
+        };
+    };
     function verificadorAcertoseErros() {
         if (primeiroclick == segundoclick) {
             pontos += 2;
-
-            imagemUm.remove();
-            imagemDois.remove();
-
+            $(imagemDois).removeClass("ativada").css("opacity", "0");
+            $(imagemUm).removeClass("ativada").css("opacity", "0");
             primeiroclick = 0;
             segundoclick = 0;
 
         } else if (primeiroclick != segundoclick) {
-            console.log("errou");
 
+            console.log("errou");
             primeiroclick = 0;
             segundoclick = 0;
+            $(imagemDois).removeClass("ativada");
+            $(imagemUm).removeClass("ativada");
         };
     };
 
     //adiciona a tabela de vencedor ao final do jogo
-    function vocêGanhou(nome, historicoDeClick, tempo) {
-        var tabela = $(".Tabela").find("tbody");
+    function voceGanhou(nome, historicoDeClick, tempo) {
+        var tabela = $(".tabela").find("tbody");
 
         let linha = "<tr>" +
             "<td>" + nome + "</td>" +
             "<td>" + historicoDeClick + "</td>" +
             "<td>" + tempo + "</td>" +
             "</tr>";
-        tabela.prepend(linha)
-        alert("Você Ganhou")
+        tabela.prepend(linha);
+        alert("Você Ganhou");
 
     };
 
     $("#areaDoJogo").on("click", ".carta", function (event) {
-        RecebeValoresColetado(event.target.value, event.target);
-        console.log(pontos)
-        let nome = $("#nome").val()
+        recebeValoresColetado(event.target.value, event.target);
+        console.log(pontos);
+        let nome = $("#nome").val();
         if (pontos == 8) {
-            vocêGanhou(nome, historicoDeClick, "5");
+            voceGanhou(nome, historicoDeClick, "5");
         }
     });
 

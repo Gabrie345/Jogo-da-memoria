@@ -29,20 +29,20 @@ main{
     text-shadow: white 0px 0px 2px;
     font-size: 16px;
     background-size: 150px;
-      background-color: rgb(235, 14, 14);
-     filter: brightness(0%);   
-}
+    background-color: rgb(235, 14, 14);
+     filter: brightness(0%);    
+} 
 p{
     color: red;
     font-size: 30px;
 }
-.carta:active{
+
+.carta.ativada{
     transform: scale(0.90);
     background-color: white;
-    filter: brightness(100%);
-    
-}
-.Tabela{
+    filter: brightness(100%);  
+} */
+.tabela{
     font-size: 30px;
     width: 30%;
     display: table;
