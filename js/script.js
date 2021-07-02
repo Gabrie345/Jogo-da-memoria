@@ -60,6 +60,7 @@ $(document).ready(function () {
     var segundoclick = 0;
     var imagemUm = "";
     var imagemDois = "";
+    var erros = 0;
 
 
     function carregaJogo() {
@@ -73,11 +74,12 @@ $(document).ready(function () {
         historicoDeClick = 0;
         primeiroclick = 0;
         segundoclick = 0;
+        erros = 0;
     };
     function mostraCartaInicioDoJogo() {
         setTimeout(() => {
             $(".carta").removeClass("ativada");
-        }, 100)
+        }, 1000)
         setTimeout(() => {
             $(".carta").addClass("ativada")
         })
@@ -98,8 +100,12 @@ $(document).ready(function () {
             imagemDois = elemento;
             $(imagemDois).addClass("ativada");
 
-            verificadorAcertoseErros();
-        };
+            verificadorAcertoseErros()
+
+            /*setTimeout(() => {
+                verificadorAcertoseErros();
+            }, 800)*/
+        }
     };
     function verificadorAcertoseErros() {
         if (primeiroclick == segundoclick) {
@@ -112,24 +118,29 @@ $(document).ready(function () {
         } else if (primeiroclick != segundoclick) {
 
             console.log("errou");
+            erros += 1;
             primeiroclick = 0;
             segundoclick = 0;
-            $(imagemDois).removeClass("ativada");
-            $(imagemUm).removeClass("ativada");
+            setTimeout(() => {
+                $(imagemDois).removeClass("ativada");
+                $(imagemUm).removeClass("ativada");
+            }, 800)
+
+
         };
     };
 
     //adiciona a tabela de vencedor ao final do jogo
-    function voceGanhou(nome, historicoDeClick, tempo) {
+    function voceGanhou(nome, historicoDeClick, erros) {
         var tabela = $(".tabela").find("tbody");
 
         let linha = "<tr>" +
             "<td>" + nome + "</td>" +
             "<td>" + historicoDeClick + "</td>" +
-            "<td>" + tempo + "</td>" +
+            "<td>" + erros + "</td>" +
             "</tr>";
         tabela.prepend(linha);
-        alert("Você Ganhou");
+        //alert("Você Ganhou");
 
     };
 
@@ -138,7 +149,7 @@ $(document).ready(function () {
         console.log(pontos);
         let nome = $("#nome").val();
         if (pontos == 8) {
-            voceGanhou(nome, historicoDeClick, "5");
+            voceGanhou(nome, historicoDeClick, erros);
         }
     });
 
